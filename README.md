@@ -8,33 +8,35 @@ cu `synchronized`.
 
 ## Cum rulezi
 
-Fiecare exemplu si fiecare exercitiu sta intr-un folder propriu cu un
-`Main.java` self-contained. Compilezi si rulezi independent:
+Fiecare exemplu/exercitiu are propriul `.java` cu nume unic, ca toate
+sa coexiste in acelasi proiect IntelliJ fara `duplicate class`.
+
+In IntelliJ: click pe `▶` din gutter langa `main()`. Din terminal:
 
 ```bash
 # un exemplu teoretic (deja implementat):
 cd src/teorie/A1-thread-cu-lambda
-javac Main.java
-java Main
+javac A1.java
+java A1
 
 # un exercitiu (pe care il completezi tu):
-cd src/exercitii/03-suma-1-100   # exemplu
-javac Main.java
-java Main
+cd src/exercitii/01-primul-thread
+javac Ex01.java
+java Ex01
 ```
 
 Structura:
 ```
 src/
 ├── teorie/             ← exemple deja implementate (citeste + ruleaza)
-│   ├── A1-thread-cu-lambda/Main.java
-│   ├── A2-sleep/Main.java
+│   ├── A1-thread-cu-lambda/A1.java
+│   ├── A2-sleep/A2.java
 │   ├── ...
-│   └── C3-synchronized-block/Main.java
+│   └── C3-synchronized-block/C3.java
 ├── exercitii/          ← AICI rezolvi (11 exercitii scurte)
-│   ├── 01-primul-thread/Main.java
+│   ├── 01-primul-thread/Ex01.java
 │   ├── ...
-│   └── 11-synchronized-block/Main.java
+│   └── 11-synchronized-block/Ex11.java
 └── aplicatie-finala/   ← 3 APLICATII CAPSTONE (dupa cele 11 exercitii)
     ├── 1-atm-banking/      ← sistem de plati bancare
     ├── 2-vanzare-bilete/   ← 80 clienti pe 50 bilete (race for limited stock)

@@ -3,31 +3,6 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/multi-threading.iml" filepath="$PROJECT_DIR$/multi-threading.iml" />
-      <module fileurl="file://$PROJECT_DIR$/src/aplicatie-finala/1-atm-banking/1-atm-banking.iml" filepath="$PROJECT_DIR$/src/aplicatie-finala/1-atm-banking/1-atm-banking.iml" />
-      <module fileurl="file://$PROJECT_DIR$/src/aplicatie-finala/2-vanzare-bilete/2-vanzare-bilete.iml" filepath="$PROJECT_DIR$/src/aplicatie-finala/2-vanzare-bilete/2-vanzare-bilete.iml" />
-      <module fileurl="file://$PROJECT_DIR$/src/aplicatie-finala/3-vot-online/3-vot-online.iml" filepath="$PROJECT_DIR$/src/aplicatie-finala/3-vot-online/3-vot-online.iml" />
-      <module fileurl="file://$PROJECT_DIR$/src/exercitii/01-primul-thread/01-primul-thread.iml" filepath="$PROJECT_DIR$/src/exercitii/01-primul-thread/01-primul-thread.iml" />
-      <module fileurl="file://$PROJECT_DIR$/src/exercitii/02-join/02-join.iml" filepath="$PROJECT_DIR$/src/exercitii/02-join/02-join.iml" />
-      <module fileurl="file://$PROJECT_DIR$/src/exercitii/03-daemon/03-daemon.iml" filepath="$PROJECT_DIR$/src/exercitii/03-daemon/03-daemon.iml" />
-      <module fileurl="file://$PROJECT_DIR$/src/exercitii/04-runnable-clasa/04-runnable-clasa.iml" filepath="$PROJECT_DIR$/src/exercitii/04-runnable-clasa/04-runnable-clasa.iml" />
-      <module fileurl="file://$PROJECT_DIR$/src/exercitii/05-runnable-parametri/05-runnable-parametri.iml" filepath="$PROJECT_DIR$/src/exercitii/05-runnable-parametri/05-runnable-parametri.iml" />
-      <module fileurl="file://$PROJECT_DIR$/src/exercitii/06-callable-suma/06-callable-suma.iml" filepath="$PROJECT_DIR$/src/exercitii/06-callable-suma/06-callable-suma.iml" />
-      <module fileurl="file://$PROJECT_DIR$/src/exercitii/07-callable-exceptie/07-callable-exceptie.iml" filepath="$PROJECT_DIR$/src/exercitii/07-callable-exceptie/07-callable-exceptie.iml" />
-      <module fileurl="file://$PROJECT_DIR$/src/exercitii/08-multiple-callable/08-multiple-callable.iml" filepath="$PROJECT_DIR$/src/exercitii/08-multiple-callable/08-multiple-callable.iml" />
-      <module fileurl="file://$PROJECT_DIR$/src/exercitii/09-race-condition/09-race-condition.iml" filepath="$PROJECT_DIR$/src/exercitii/09-race-condition/09-race-condition.iml" />
-      <module fileurl="file://$PROJECT_DIR$/src/exercitii/10-synchronized-method/10-synchronized-method.iml" filepath="$PROJECT_DIR$/src/exercitii/10-synchronized-method/10-synchronized-method.iml" />
-      <module fileurl="file://$PROJECT_DIR$/src/exercitii/11-synchronized-block/11-synchronized-block.iml" filepath="$PROJECT_DIR$/src/exercitii/11-synchronized-block/11-synchronized-block.iml" />
-      <module fileurl="file://$PROJECT_DIR$/src/teorie/A1-thread-cu-lambda/A1-thread-cu-lambda.iml" filepath="$PROJECT_DIR$/src/teorie/A1-thread-cu-lambda/A1-thread-cu-lambda.iml" />
-      <module fileurl="file://$PROJECT_DIR$/src/teorie/A2-sleep/A2-sleep.iml" filepath="$PROJECT_DIR$/src/teorie/A2-sleep/A2-sleep.iml" />
-      <module fileurl="file://$PROJECT_DIR$/src/teorie/A3-join/A3-join.iml" filepath="$PROJECT_DIR$/src/teorie/A3-join/A3-join.iml" />
-      <module fileurl="file://$PROJECT_DIR$/src/teorie/A4-start-vs-run/A4-start-vs-run.iml" filepath="$PROJECT_DIR$/src/teorie/A4-start-vs-run/A4-start-vs-run.iml" />
-      <module fileurl="file://$PROJECT_DIR$/src/teorie/A5-daemon/A5-daemon.iml" filepath="$PROJECT_DIR$/src/teorie/A5-daemon/A5-daemon.iml" />
-      <module fileurl="file://$PROJECT_DIR$/src/teorie/B1-runnable/B1-runnable.iml" filepath="$PROJECT_DIR$/src/teorie/B1-runnable/B1-runnable.iml" />
-      <module fileurl="file://$PROJECT_DIR$/src/teorie/B2-callable-future/B2-callable-future.iml" filepath="$PROJECT_DIR$/src/teorie/B2-callable-future/B2-callable-future.iml" />
-      <module fileurl="file://$PROJECT_DIR$/src/teorie/B3-exception-wrapping/B3-exception-wrapping.iml" filepath="$PROJECT_DIR$/src/teorie/B3-exception-wrapping/B3-exception-wrapping.iml" />
-      <module fileurl="file://$PROJECT_DIR$/src/teorie/C1-race-condition/C1-race-condition.iml" filepath="$PROJECT_DIR$/src/teorie/C1-race-condition/C1-race-condition.iml" />
-      <module fileurl="file://$PROJECT_DIR$/src/teorie/C2-synchronized-method/C2-synchronized-method.iml" filepath="$PROJECT_DIR$/src/teorie/C2-synchronized-method/C2-synchronized-method.iml" />
-      <module fileurl="file://$PROJECT_DIR$/src/teorie/C3-synchronized-block/C3-synchronized-block.iml" filepath="$PROJECT_DIR$/src/teorie/C3-synchronized-block/C3-synchronized-block.iml" />
     </modules>
   </component>
 </project>
