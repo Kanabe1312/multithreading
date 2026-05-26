@@ -7,14 +7,23 @@
 // =============================================================
 public class Ex04 {
     public static void main(String[] args) throws InterruptedException {
-        // PAS 1: instantiezi Salutator-ul si il dai unui Thread
-        // TODO
 
-        // PAS 2: .start() + .join()
-        // TODO
+        Thread t = new Thread(new Salutator());
+
+
+
+        t.start();
+
+        t.join();
     }
+    static class Salutator implements Runnable {
 
-    // PAS 3: defineste clasa Salutator
-    // static class Salutator implements Runnable { ... }
-    // TODO
+        @Override
+        public void run() {
+
+            System.out.println("Salut din Salutator!");
+
+        }
+
+    }
 }
