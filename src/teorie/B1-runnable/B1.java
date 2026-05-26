@@ -2,9 +2,9 @@
 public class B1 {
     public static void main(String[] args) throws InterruptedException {
         // varianta lambda
-        Runnable taskLambda = () -> System.out.println("[lambda]");
-        Thread t0 = new Thread(taskLambda);
-        t0.start();
+        Runnable taskLambda = () -> System.out.println("[lambda]");//---creaza reteta
+        Thread t0 = new Thread(taskLambda);//----creaza bucatarul
+        t0.start();//---start la gatit
         t0.join();
 
         // varianta cu clasa => util cand vrei state in field

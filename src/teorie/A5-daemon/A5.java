@@ -18,7 +18,7 @@ public class A5 {
         tick.setDaemon(true);
         tick.start();
 
-        Thread.sleep(350);   // vezi ~3 tick-uri
+        Thread.sleep(300);   // vezi ~3 tick-uri
         tick.interrupt();
         tick.join();
     }

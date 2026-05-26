@@ -9,14 +9,24 @@
 // =============================================================
 public class Ex03 {
     public static void main(String[] args) throws InterruptedException {
-        // PAS 1: thread cu while(true) { print "[tick]"; sleep(100); }
-        //         (prinde InterruptedException si return)
-        // TODO
 
-        // PAS 2: setDaemon(true) INAINTE de start()
-        // TODO
+        Thread tick = new Thread(()-> {
+            while(true){
+                System.out.println("[tick]");
+                try{
+                    Thread.sleep(100);
+                }catch (InterruptedException e){
+                    Thread.currentThread().interrupt();
+                    return;
+                }
+            }
+        });
 
-        // PAS 3: main doarme 500ms
-        // TODO
+        tick.setDaemon(true);
+        tick.start();
+
+        Thread.sleep(500);
+        System.out.println("Main finished!");
+
     }
 }

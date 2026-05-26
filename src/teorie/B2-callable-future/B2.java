@@ -17,11 +17,11 @@ public class B2 {
             return s;
         };
 
-        Future<Integer> future = executor.submit(task);
+        Future<Integer> future = executor.submit(task);//---submit trimite tasku de aici la executor
 
-        // .get() blocheaza pana task-ul termina si returneaza rezultatul.
-        System.out.println("Suma 1..10 = " + future.get());
+        // .get() blocheaza pana task-ul termina si returneaza rezultatul.//---ASTA NU INTELEG
+        System.out.println("Suma 1..10 = " + future.get());//---nici conceptu asta
 
-        executor.shutdown();
+        executor.shutdown();//---executorul tine programele(threads) in viata ,deaia tr oprit
     }
 }
