@@ -15,15 +15,26 @@
 // import java.util.concurrent.Executors;
 // import java.util.concurrent.Future;
 
+import java.io.IOException;
+import java.util.concurrent.*;
+
 public class Ex07 {
     public static void main(String[] args) throws InterruptedException {
-        // PAS 1: Callable<String> care arunca IOException
-        // TODO
+        Callable<String> task = ()-> {
+            throw new IOException("File not found");
+        };
 
-        // PAS 2: submit + try { future.get(); } catch (ExecutionException e) { ... }
-        // TODO
 
-        // PAS 3: print e.getCause().getMessage()
-        // TODO
+        ExecutorService executor = Executors.newSingleThreadExecutor();
+        Future<String> future = executor.submit(task);//-->tine eroarea
+
+        try{
+            future.get();//--->incearca sa prind rezulzatu da callable arunca exceptia
+        }catch (ExecutionException e){
+            System.out.println(e.getCause().getMessage());
+        }
+
+
+
     }
 }

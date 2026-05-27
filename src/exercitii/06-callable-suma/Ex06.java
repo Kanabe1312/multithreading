@@ -12,19 +12,34 @@
 // import java.util.concurrent.Executors;
 // import java.util.concurrent.Future;
 
+import java.util.concurrent.Callable;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
+
 public class Ex06 {
     public static void main(String[] args) throws Exception {
-        // PAS 1: Callable<Integer> task = () -> { ... return suma; };
-        // TODO
 
-        // PAS 2: ExecutorService executor = Executors.newSingleThreadExecutor();
-        // TODO
+        Callable<Integer> task = () -> {//---->Task care returneaza un integer
+            int suma = 0;
+            for(int i = 1;i <= 100;i++){
+                suma += i;
+            }
+            return suma;
+        };
 
-        // PAS 3: Future<Integer> future = executor.submit(task);
-        //        Integer rezultat = future.get();
-        // TODO
 
-        // PAS 4: print + executor.shutdown()
-        // TODO
+        ExecutorService executor = Executors.newSingleThreadExecutor();
+
+        Future<Integer> future = executor.submit(task);
+
+
+        Integer rezultat = future.get();
+
+
+        System.out.println(rezultat);
+
+        executor.shutdown();
+
     }
 }

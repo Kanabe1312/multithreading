@@ -10,8 +10,6 @@ public class Ex04 {
 
         Thread t = new Thread(new Salutator());
 
-
-
         t.start();
 
         t.join();

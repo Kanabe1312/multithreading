@@ -7,16 +7,34 @@
 // =============================================================
 public class Ex05 {
     public static void main(String[] args) throws InterruptedException {
-        // PAS 1: creezi 3 threaduri, fiecare cu un SalutatorCuNume diferit
-        // TODO
 
-        // PAS 2: .start() pe toate
-        // TODO
+        Thread t1 = new Thread(new SalutatorCuNume("Ana"));
+        Thread t2 = new Thread(new SalutatorCuNume("Bogdan"));
+        Thread t3 = new Thread(new SalutatorCuNume("Cristi"));
 
-        // PAS 3: .join() pe toate
-        // TODO
+        t1.start();
+        t2.start();
+        t3.start();
+
+        t1.join();
+        t2.join();
+        t3.join();
+
     }
 
-    // PAS 4: defineste SalutatorCuNume cu field "nume" si constructor
-    // TODO
+    static class SalutatorCuNume implements Runnable{
+
+        private  final String nume;
+
+        public SalutatorCuNume(String nume){
+
+            this.nume = nume;
+        }
+        @Override
+        public void run(){
+            System.out.println("Salut," + nume + "!");
+        }
+
+    }
+
 }

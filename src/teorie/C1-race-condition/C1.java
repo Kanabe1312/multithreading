@@ -28,7 +28,7 @@ public class C1 {
         private int count = 0;
 
         public void incrementeaza() {
-            count++; // race! 3 pasi: citeste, +1, scrie
+            count++; // race! 3 pasi: citeste, +1, scrie    ambele treaduri modifica acelas count
         }
 
         public int getCount() {

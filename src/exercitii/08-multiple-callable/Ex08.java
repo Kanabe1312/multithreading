@@ -15,22 +15,40 @@
 // import java.util.concurrent.Executors;
 // import java.util.concurrent.Future;
 
+import java.util.concurrent.Callable;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
+
 public class Ex08 {
     public static void main(String[] args) throws Exception {
-        // PAS 1: 3 Callable<Integer> care fac sume pe intervale diferite
-        //        (extrage logica intr-o metoda helper: suma(int de_la, int pana_la))
-        // TODO
 
-        // PAS 2: ExecutorService cu newFixedThreadPool(3)
-        // TODO
+        Callable<Integer> c1 = () -> suma(1,100);
+        Callable<Integer>c2 = ()->suma(101,200);
+        Callable<Integer>c3 = ()-> suma(201,300);
 
-        // PAS 3: submit pentru fiecare task, primesti 3 Future
-        // TODO
+        ExecutorService executor = Executors.newFixedThreadPool(3);
 
-        // PAS 4: aduni f1.get() + f2.get() + f3.get() si printezi
-        // TODO
+
+        Future<Integer> f1 = executor.submit(c1);
+        Future<Integer> f2 = executor.submit(c2);
+        Future<Integer>f3 = executor.submit(c3);
+
+
+        int total = f1.get()+f2.get()+f3.get();
+
+
+        System.out.println("Total = " + total);
+        executor.shutdown();
+    }
+    private static int suma(int de_la, int pana_la){
+        int s = 0;
+
+        for(int i = de_la;i <= pana_la;i++){
+            s += i;
+        }
+        return s;
     }
 
-    // private static int suma(int de_la, int pana_la) { ... }
-    // TODO
+
 }

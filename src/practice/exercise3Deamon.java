@@ -14,6 +14,11 @@ public class exercise3Deamon {
            }
         });
 
+        Animal t= ()->{
+            System.out.println("test");
+        };
+
+        t.test();
         background.setDaemon(true);
         background.start();
 

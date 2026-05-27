@@ -7,9 +7,9 @@ import java.util.concurrent.Future;
 // Exemplul B.2 — Callable returneaza valoare, Future iti da rezultatul.
 public class B2 {
     public static void main(String[] args) throws InterruptedException, ExecutionException {
-        ExecutorService executor = Executors.newSingleThreadExecutor();
+        ExecutorService executor = Executors.newSingleThreadExecutor();//---executorul(Setful la workeri)
 
-        Callable<Integer> task = () -> {
+        Callable<Integer> task = () -> {//-------
             int s = 0;
             for (int i = 1; i <= 10; i++) {
                 s += i;

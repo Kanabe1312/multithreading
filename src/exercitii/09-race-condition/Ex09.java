@@ -1,3 +1,5 @@
+
+
 // =============================================================
 // EXERCITIUL 09 - Race condition (fara protectie)
 // =============================================================
@@ -11,19 +13,41 @@
 // =============================================================
 public class Ex09 {
     public static void main(String[] args) throws InterruptedException {
-        // PAS 1: instantiezi Contor
-        // TODO
 
-        // PAS 2: 2 threaduri, fiecare cu for (i=0; i<100_000; i++) contor.incrementeaza();
-        // TODO
+        Contor contor = new Contor();
 
-        // PAS 3: start + join pe ambele
-        // TODO
+        Thread t1 = new Thread(()-> {//----------Ambele threaduri modififca acelas count
+           for (int i = 0;i<100_000;i++){
+               contor.incrementeaza();
+           }
+        });
 
-        // PAS 4: print "Asteptat: 200000" si "Real: <count>"
-        // TODO
+        Thread t2 = new Thread(()-> {
+           for(int i = 0; i <100_000;i++){
+               contor.incrementeaza();
+           }
+        });
+
+       t1.start();
+       t2.start();
+
+       t1.join();//asteapta
+       t2.join();
+
+        System.out.println("Asteptat: 200k");
+        System.out.println("\nReal: "+ contor.getCount());
     }
 
-    // PAS 5: defineste Contor cu int count si metodele incrementeaza() + getCount()
-    // TODO
+
+    static class Contor{
+        private int count = 0;
+
+        public void incrementeaza(){
+            count++;
+        }
+       public int getCount(){
+            return count;
+       }
+    }
+
 }
