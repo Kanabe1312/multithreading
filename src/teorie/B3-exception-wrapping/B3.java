@@ -16,9 +16,10 @@ public class B3 {
         };
 
         Future<String> future = executor.submit(task);
+
         try {
             future.get();
-        } catch (ExecutionException e) {
+        } catch (ExecutionException e) {//wrapper-ul pentru erorile async
             // e.getCause() == IOException-ul original
             System.out.println("originala: " + e.getCause().getMessage());
         }

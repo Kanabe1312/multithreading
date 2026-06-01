@@ -1,6 +1,6 @@
 // Exemplul C.1 — Race condition: count++ NU e atomic.
 // Asteptat: 200.000. Real: un numar mai mic, nedeterminist.
-public class C1 {
+public class  C1 {
     public static void main(String[] args) throws InterruptedException {
         Contor c = new Contor();
 

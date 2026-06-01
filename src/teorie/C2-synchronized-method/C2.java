@@ -26,14 +26,23 @@ public class C2 {
 
     static class Contor {
         private int count = 0;
+        private int count2 = 0;
 
-        public synchronized void incrementeaza() {
-            count++;
+        public synchronized void incrementeaza() {//intra primul thread -il blocheaza pana se termina functia
+            count++;                              //thread 2 asteapta pana termina primul(thread 1-unlock)
         }
 
         // getter-ul si el synchronized => memory visibility
         public synchronized int getCount() {
             return count;
+        }
+        public synchronized void incrementeaza2() {//intra primul thread -il blocheaza pana se termina functia
+            count2++;                              //thread 2 asteapta pana termina primul(thread 1-unlock)
+        }
+
+        // getter-ul si el synchronized => memory visibility
+        public synchronized int getCount2() {
+            return count2;
         }
     }
 }

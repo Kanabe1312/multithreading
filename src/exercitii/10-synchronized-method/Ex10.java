@@ -9,17 +9,39 @@
 // =============================================================
 public class Ex10 {
     public static void main(String[] args) throws InterruptedException {
-        // PAS 1: copiezi structura din exercitiul 09
-        // TODO
+        Contor contor = new Contor();
 
-        // PAS 2: la Contor, pui synchronized pe incrementeaza() SI pe getCount()
-        // TODO
+        Thread t1 = new Thread(()-> {
+            for (int i = 0;i<100_000;i++){
+                contor.incrementeaza();
+            }
+        });
+
+        Thread t2 = new Thread(()-> {
+            for(int i = 0; i <100_000;i++){
+                contor.incrementeaza();
+            }
+        });
+
+        t1.start();
+        t2.start();
+
+        t1.join();//asteapta
+        t2.join();
+
+        System.out.println("Asteptat: 200k");
+        System.out.println("\nReal: "+ contor.getCount());
+
     }
+    static class Contor{
+        private int count = 0;
+        public synchronized void incrementeaza(){
+            count++;
+        }
+        public synchronized int getCount()
+        {
+            return count;
+        }
 
-    // static class Contor {
-    //     private int count = 0;
-    //     public synchronized void incrementeaza() { count++; }
-    //     public synchronized int getCount() { return count; }
-    // }
-    // TODO
+    }
 }

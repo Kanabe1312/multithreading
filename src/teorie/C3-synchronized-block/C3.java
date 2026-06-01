@@ -28,10 +28,13 @@ public class C3 {
 
     static class Cos {
         private final List<String> produse = new ArrayList<>();
-        private final Object lock = new Object();
+        private final List<String> produse2 = new ArrayList<>();
+
+        private final Object lock = new Object();//creaza obiectul lock
+        private final Object lock2 = new Object();
 
         public void adauga(String p) {
-            synchronized (lock) {
+            synchronized (lock) {//lock pe  bucata asta de cod----!NU PE TOATA METODA!
                 produse.add(p);
             }
         }
@@ -41,5 +44,21 @@ public class C3 {
                 return produse.size();
             }
         }
+
+        public void adauga2(String p) {
+            synchronized (lock2) {
+                produse2.add(p);
+            }
+        }
+
+        public int dimensiune2() {
+            synchronized (lock2) {
+                return produse2.size();
+            }
+        }
     }
+    ////Worker  A i-a lockulX  si asteapta dupa lockul Y    \
+    ///                                                      >-------exemplu de blockedLock
+    ///Worker   B i-a lockulY  si asteapta dupa lockulX     /
+
 }

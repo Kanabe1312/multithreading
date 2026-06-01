@@ -11,22 +11,67 @@
 // =============================================================
 public class Ex11 {
     public static void main(String[] args) throws InterruptedException {
-        // PAS 1: instantiezi ContorDublu
-        // TODO
 
-        // PAS 2: 2 threaduri:
-        //   - thread t1 face contor.incrementeazaA() de 100_000 ori
-        //   - thread t2 face contor.incrementeazaB() de 100_000 ori
-        // TODO
+        ContorDublu contor = new ContorDublu();
 
-        // PAS 3: start + join pe ambele
-        // TODO
+        Thread t1 = new Thread(()->{
+            for (int i=0;i<100_000;i++) {
+                contor.incrementeazaA();
+            }
+        });
 
-        // PAS 4: print A si B (ambele trebuie sa fie 100000)
-        // TODO
+        Thread t2 = new Thread(()->{
+            for (int i=0;i<100_000;i++) {
+                contor.incrementeazaB();
+            }
+        });
+        t1.start();
+        t2.start();
+
+        t1.join();
+        t2.join();
+
+
+        System.out.println("A = "+contor.getA());
+        System.out.println("B = "+contor.getB());
+
+
+    }
+   static class ContorDublu{
+        private int a =  0;
+        private int b = 0;
+
+        private final Object lockA = new Object();
+        private final Object lockB = new Object();
+
+        public void incrementeazaA() {
+            synchronized (lockA) {
+                a++;
+            }
+        }
+
+        public void incrementeazaB() {
+            synchronized (lockB) {
+                b++;
+            }
+        }
+
+        public int getA() {
+            synchronized (lockA) {
+                return a;
+            }
+        }
+        public int getB() {
+            synchronized (lockB) {
+                return b;
+            }
+        }
+
+
+
+
+
     }
 
-    // PAS 5: defineste ContorDublu cu campurile a, b, lockA, lockB
-    //        si metodele incrementeazaA, incrementeazaB, getA, getB
-    // TODO
+
 }
