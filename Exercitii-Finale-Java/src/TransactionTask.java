@@ -24,16 +24,11 @@ public class TransactionTask implements Callable <Boolean>{
                 result = true;
             }
 
-            case WITHDRAW ->
-                    result = transaction.getFrom()
+            case WITHDRAW -> result = transaction.getFrom()
                             .withdraw(transaction.getAmount());
 
-            case TRANSFER ->
-                    result = transaction.getFrom()
-                            .transfer(
-                                    transaction.getTo(),
-                                    transaction.getAmount()
-                            );
+            case TRANSFER -> result = transaction.getFrom().
+                    transfer(transaction.getTo(), transaction.getAmount());
         }
 
         statistics.incrementProcessed();
