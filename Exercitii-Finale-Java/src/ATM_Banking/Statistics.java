@@ -1,3 +1,5 @@
+package ATM_Banking;
+
 public class Statistics {
     private int processed;
 

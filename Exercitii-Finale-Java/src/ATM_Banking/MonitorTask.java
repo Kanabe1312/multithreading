@@ -1,10 +1,12 @@
+package ATM_Banking;
+
 import java.util.List;
 
 public class MonitorTask implements Runnable {
     private List<Account> accounts;
     private Statistics statistics;
 
-    public MonitorTask(List<Account> accounts,Statistics statistics) {
+    public MonitorTask(List<Account> accounts, Statistics statistics) {
 
         this.accounts = accounts;
         this.statistics = statistics;
