@@ -16,6 +16,8 @@ public class Ex201 {
     // PAS 1: declara `static boolean opreste = false;` (FARA volatile)
     // TODO
 
+    static boolean opreste = true;
+
     public static void main(String[] args) throws InterruptedException {
         // PAS 2: creezi un Thread cu un Runnable care:
         //  - printeaza "[worker] pornesc"
@@ -23,16 +25,33 @@ public class Ex201 {
         //  - printeaza "[worker] oprit dupa <iteratii> iteratii"
         // TODO
 
+        Thread worker = new Thread(() -> {
+            System.out.println("[worker] pornesc ");
+            long iteratii = 0;
+            while(!opreste){
+                iteratii++;
+            }
+
+        });
+
         // PAS 3: worker.start()
         // TODO
+        worker.start();
 
         // PAS 4: Thread.sleep(500)
         // TODO
-
+        Thread.sleep(500);
         // PAS 5: System.out.println("[main] setez opreste=true") apoi opreste = true
         // TODO
-
+        System.out.println("[main] setez opreste = true");
+        opreste = true;
         // PAS 6: worker.join(2000); daca worker.isAlive() printezi mesaj si System.exit(0)
         // TODO
+        worker.join(2000);
+
+        if(worker.isAlive()){
+            System.out.println("[main] worker-ul inca ruleaza =>bug confirmat ");
+            System.exit(0);
+        }
     }
 }

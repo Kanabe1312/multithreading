@@ -27,5 +27,7 @@ public class L2A2 {
 
         worker.join();
         System.out.println("[main] gata");
+
+
     }
 }
