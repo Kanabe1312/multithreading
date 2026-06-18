@@ -140,6 +140,142 @@ activ.set(noulConfig);                       // simpla schimbare
 activ.compareAndSet(vechi, nou);             // CAS pe referinta
 ```
 
+---
+
+#### 5b. `AtomicReference<T>` — deep dive
+
+`AtomicReference<T>` stocheaza o **referinta** catre un obiect, nu obiectul
+in sine. Toata atomicitatea se aplica pe schimbarea **referintei** (cine
+"indica" la ce), NU pe modificarea continutului obiectului indicat.
+
+```java
+AtomicReference<String> mesaj = new AtomicReference<>("salut");
+mesaj.set("pa");          // schimba referinta atomic
+String v = mesaj.get();   // citeste referinta atomic
+```
+
+Gandeste-te la el ca la o "cutie" cu o singura sageata in interior. CAS
+schimba **incotro arata sageata**. Daca trimiti pe altcineva sa modifice
+*obiectul de la capatul sagetii*, AtomicReference nu te apara.
+
+##### De ce nu doar `volatile T ref`?
+
+`volatile` rezolva visibility (alt thread vede noua referinta), DAR nu iti
+da operatii compound atomice. Cu `AtomicReference` ai in plus:
+
+| Metoda | Ce face |
+|---|---|
+| `get()` | citeste referinta curenta |
+| `set(x)` | inlocuieste cu x (atomic + vizibil tuturor) |
+| `compareAndSet(exp, n)` | daca ref-ul curent **==** `exp`, schimba la `n` si return true; altfel false |
+| `getAndSet(n)` | seteaza la `n`, returneaza valoarea VECHE |
+| `updateAndGet(f)` | aplica `f` peste curent, scrie rezultatul, returneaza noul (spin CAS intern) |
+| `getAndUpdate(f)` | la fel, dar returneaza vechiul |
+| `accumulateAndGet(x, f)` | combina valoarea curenta cu `x` prin `f` |
+
+`updateAndGet` e zaharul sintactic peste spin-CAS — il scrii o data, il
+intelegi pentru totdeauna:
+
+```java
+AtomicReference<Integer> max = new AtomicReference<>(Integer.MIN_VALUE);
+max.updateAndGet(curent -> Math.max(curent, val));   // gata, fara while(true)
+```
+
+##### Capcana #1: `compareAndSet` compara cu `==`, nu cu `.equals()`
+
+Pentru `AtomicReference<T>`, CAS compara **identitatea referintei** (`==`),
+NU egalitatea logica (`.equals()`). Cu boxed types asta te poate musca:
+
+```java
+AtomicReference<Integer> v = new AtomicReference<>(500);
+v.compareAndSet(500, 600);     // PROBABIL false!
+// Cele doua "500" sunt boxed in obiecte Integer DIFERITE (Integer cache
+// e doar [-128, 127]). v.get() != literalul 500 din apel.
+```
+
+Regula: NU pasa literali la CAS. Citesti mai intai cu `get()`:
+
+```java
+Integer curent = v.get();
+if (val > curent) {
+    v.compareAndSet(curent, val);    // OK — comparam aceeasi referinta
+}
+```
+
+##### Capcana #2: nu muta obiectul tinut — inlocuieste-l
+
+`AtomicReference` nu protejeaza campurile obiectului. Daca tii ceva
+mutabil si il modifici "in loc", thread-urile pot vedea stari partiale.
+
+```java
+// GRESIT — Config e mutabil, scrierea unui camp NU e atomica
+class Config { int timeout; String host; }
+AtomicReference<Config> activ = new AtomicReference<>(c);
+activ.get().timeout = 5000;          // race condition pe camp!
+
+// CORECT — creezi un Config nou si inlocuiesti referinta
+record Config(int timeout, String host) {}
+Config curent = activ.get();
+Config nou = new Config(5000, curent.host());
+activ.compareAndSet(curent, nou);
+```
+
+Aceeasi regula la `AtomicReference<List<X>>`: NU `.get().add(x)`. Faci
+lista noua si inlocuiesti referinta (sau folosesti
+`CopyOnWriteArrayList` daca chiar trebuie incremental).
+
+> **Regula de aur:** `AtomicReference` merge cel mai bine cu obiecte
+> **imutabile** (records, String, Integer, copii defensive). Imutabilitate
+> + CAS = lock-free corect.
+
+##### Pattern: spin CAS pe AtomicReference
+
+```java
+AtomicReference<Snapshot> snap = new AtomicReference<>(new Snapshot(0, 0));
+
+void adauga(int x) {
+    while (true) {
+        Snapshot curent = snap.get();
+        Snapshot nou = new Snapshot(curent.suma() + x, curent.n() + 1);
+        if (snap.compareAndSet(curent, nou)) return;
+        // altcineva a schimbat snap intre get() si CAS — reincerc
+    }
+}
+```
+
+Acelasi cod, mai scurt cu `updateAndGet`:
+
+```java
+snap.updateAndGet(s -> new Snapshot(s.suma() + x, s.n() + 1));
+```
+
+> **Atentie:** functia data lui `updateAndGet` poate fi apelata de MAI
+> MULTE ORI (daca alt thread o ia inainte intre `get` si CAS intern). De
+> aceea trebuie sa fie **pura** — fara prints, fara IO, fara modificari de
+> stare in afara. Doar primeste valoarea curenta si returneaza una noua.
+
+##### Cand alegi AtomicReference vs alternative
+
+| Vrei... | Foloseste |
+|---|---|
+| publici o noua referinta, citita de multi consumatori | `volatile T` ajunge |
+| swap conditionat al unei referinte (config hot-reload) | `AtomicReference` + `compareAndSet` |
+| contor numeric simplu | `AtomicInteger` / `AtomicLong`, NU `AtomicReference<Integer>` |
+| max / min / agregare pe valoare imutabila | `AtomicReference` + `updateAndGet` |
+| top-bidder, cel-mai-recent eveniment, snapshot publicat | `AtomicReference` |
+| mai multe campuri care trebuie schimbate impreuna | `AtomicReference<Record>` (imutabil) sau `synchronized` |
+
+##### Problema ABA (mentiune scurta)
+
+`compareAndSet` vede doar "ref-ul curent == expected", nu "valoarea nu s-a
+schimbat intre timp". Daca alt thread face A → B → A intre `get()` si
+CAS-ul tau, CAS-ul reuseste desi lumea s-a schimbat. Pentru cele mai
+multe scenarii didactice nu conteaza; cand conteaza, folosesti
+`AtomicStampedReference` (referinta + un counter / "stamp" pe care il
+incrementezi la fiecare modificare).
+
+---
+
 #### 6. Compare-And-Set (CAS)
 
 `compareAndSet(expected, newValue)`:
@@ -232,8 +368,31 @@ while (true) {
 ### Ex207 - AtomicReference cu maxim
 - `import java.util.concurrent.atomic.AtomicReference;`
 - `AtomicReference<Integer> max = new AtomicReference<>(Integer.MIN_VALUE);`
-- Spin CAS: `if (val <= curent) return;` apoi `if (max.compareAndSet(curent, val)) return;`
 - Captura lui `val` in for-loop: foloseste `final int val = valori[i];` inainte de lambda
+- **Varianta manuala (intelegi CAS):** spin loop scris de mana
+  ```java
+  static void incearcaMax(AtomicReference<Integer> max, int val) {
+      while (true) {
+          Integer curent = max.get();         // citesti referinta curenta
+          if (val <= curent) return;          // nu e maxim nou, ies
+          if (max.compareAndSet(curent, val)) return;  // am reusit swap-ul
+          // altcineva a schimbat max intre get() si CAS — reincerc
+      }
+  }
+  ```
+  De ce `Integer curent = max.get()` si NU `int curent`? Pentru ca la
+  `compareAndSet(curent, val)` ai nevoie sa pasezi EXACT referinta pe care
+  ai citit-o cu `get()`. Daca pui `int` si Java reboxeaza, capcana cu `==`
+  din sectiunea 5b te musca.
+- **Varianta scurta (zaharul sintactic):** acelasi efect cu `updateAndGet`
+  ```java
+  max.updateAndGet(curent -> Math.max(curent, val));
+  ```
+  Lambda trebuie sa fie pura — fara prints inauntru, ca poate fi
+  re-apelata daca alt thread o ia inainte.
+- Daca rulezi 10 threaduri × 100 valori random in [0, 1000], rezultatul
+  final trebuie sa fie MEREU acelasi (= maximul din toate cele 1000 de
+  numere), indiferent de ordine.
 
 ### Ex208 - AtomicBoolean stop
 - `import java.util.concurrent.atomic.AtomicBoolean;`
