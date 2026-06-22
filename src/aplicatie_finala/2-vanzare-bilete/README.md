@@ -83,7 +83,7 @@ sa atarne.
 ## Cum rulezi
 
 ```bash
-cd src/aplicatie-finala/2-vanzare-bilete
+cd src/aplicatie_finala/2-vanzare-bilete
 javac *.java
 java Main
 ```
@@ -92,4 +92,4 @@ java Main
 
 ## Solutie
 
-Daca te blochezi: `../../../../final/src/aplicatie-finala/2-vanzare-bilete/`.
+Daca te blochezi: `../../../../final/src/aplicatie_finala/2-vanzare-bilete/`.

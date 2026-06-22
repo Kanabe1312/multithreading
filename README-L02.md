@@ -55,7 +55,7 @@ src/
 │   ├── L02-07-atomic-reference-max/Ex207.java
 │   ├── L02-08-atomic-boolean-stop/Ex208.java
 │   └── L02-09-atomic-long-suma/Ex209.java
-└── aplicatie-finala/
+└── aplicatie_finala/
     ├── 1-atm-banking/, 2-vanzare-bilete/, 3-vot-online/   ← L01 (existent)
     ├── L02-1-licitatie-online/    ← AtomicReference + CAS spin
     ├── L02-2-rate-limiter/        ← AtomicInteger CAS + AtomicBoolean
@@ -433,13 +433,13 @@ while (true) {
 ## Aplicatii finale
 
 Dupa cele 9 exercitii ai **3 aplicatii capstone** in
-`src/aplicatie-finala/L02-*`:
+`src/aplicatie_finala/L02-*`:
 1. Licitatie online (AtomicReference + CAS spin)
 2. API rate limiter (AtomicInteger CAS + AtomicBoolean)
 3. Telemetrie IoT (AtomicLong + AtomicReference<Double> CAS)
 
 Trebuie facute toate trei inainte sa treci la lectia 03. Vezi
-`src/aplicatie-finala/README-L02.md` pentru index si fiecare sub-folder
+`src/aplicatie_finala/README-L02.md` pentru index si fiecare sub-folder
 pentru cerinte. Ca la L01 (atm-banking, vanzare-bilete) poti face cate
 un repo separat pe capstone daca preferi.
 

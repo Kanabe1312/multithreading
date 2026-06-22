@@ -79,7 +79,7 @@ sa atarne.
 ## Cum rulezi
 
 ```bash
-cd src/aplicatie-finala/L02-2-rate-limiter
+cd src/aplicatie_finala/L02-2-rate-limiter
 javac *.java
 java Main
 ```
@@ -89,4 +89,4 @@ java Main
 ## Solutie
 
 Daca te blochezi, vezi solutia profesorului in repo-ul de teorie:
-`projects-for-teaching/java/vanilla-java/multithreading/02-volatile-atomic/final/src/aplicatie-finala/2-rate-limiter/`.
+`projects-for-teaching/java/vanilla-java/multithreading/02-volatile-atomic/final/src/aplicatie_finala/2-rate-limiter/`.

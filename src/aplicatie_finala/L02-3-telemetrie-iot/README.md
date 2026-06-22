@@ -91,7 +91,7 @@ fara sa atarne.
 ## Cum rulezi
 
 ```bash
-cd src/aplicatie-finala/L02-3-telemetrie-iot
+cd src/aplicatie_finala/L02-3-telemetrie-iot
 javac *.java
 java Main
 ```
@@ -101,4 +101,4 @@ java Main
 ## Solutie
 
 Daca te blochezi, vezi solutia profesorului in repo-ul de teorie:
-`projects-for-teaching/java/vanilla-java/multithreading/02-volatile-atomic/final/src/aplicatie-finala/3-telemetrie-iot/`.
+`projects-for-teaching/java/vanilla-java/multithreading/02-volatile-atomic/final/src/aplicatie_finala/3-telemetrie-iot/`.

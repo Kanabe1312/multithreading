@@ -83,7 +83,7 @@ sa atarne.
 ## Cum rulezi
 
 ```bash
-cd src/aplicatie-finala/L02-1-licitatie-online
+cd src/aplicatie_finala/L02-1-licitatie-online
 javac *.java
 java Main
 ```
@@ -93,4 +93,4 @@ java Main
 ## Solutie
 
 Daca te blochezi, vezi solutia profesorului in repo-ul de teorie:
-`projects-for-teaching/java/vanilla-java/multithreading/02-volatile-atomic/final/src/aplicatie-finala/1-licitatie-online/`.
+`projects-for-teaching/java/vanilla-java/multithreading/02-volatile-atomic/final/src/aplicatie_finala/1-licitatie-online/`.

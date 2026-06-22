@@ -37,7 +37,7 @@ src/
 │   ├── 01-primul-thread/Ex01.java
 │   ├── ...
 │   └── 11-synchronized-block/Ex11.java
-└── aplicatie-finala/   ← 3 APLICATII CAPSTONE (dupa cele 11 exercitii)
+└── aplicatie_finala/   ← 3 APLICATII CAPSTONE (dupa cele 11 exercitii)
     ├── 1-atm-banking/      ← sistem de plati bancare
     ├── 2-vanzare-bilete/   ← 80 clienti pe 50 bilete (race for limited stock)
     └── 3-vot-online/       ← 1000 voturi paralel, 3 candidati, dashboard live
@@ -294,14 +294,14 @@ chiar daca doar citeste.
 ## Aplicatii finale
 
 Dupa cele 11 exercitii ai **3 aplicatii capstone** in
-`src/aplicatie-finala/`:
+`src/aplicatie_finala/`:
 1. Sistem de plati bancare (ATM)
 2. Vanzare bilete concert (race for limited stock)
 3. Sistem de vot online (dashboard live)
 
 Trebuie facute toate trei inainte sa treci la lectia 02. Vezi
-`aplicatie-finala/README.md` pentru index si fiecare sub-folder pentru
-cerinte. Solutii: `../final/src/aplicatie-finala/`.
+`aplicatie_finala/README.md` pentru index si fiecare sub-folder pentru
+cerinte. Solutii: `../final/src/aplicatie_finala/`.
 
 ## Ce urmeaza
 

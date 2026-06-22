@@ -88,7 +88,7 @@ depozite − retrageri = suma soldurilor finale).
 ## Cum rulezi
 
 ```bash
-cd src/aplicatie-finala/1-atm-banking
+cd src/aplicatie_finala/1-atm-banking
 javac *.java
 java Main
 ```
@@ -97,4 +97,4 @@ java Main
 
 ## Solutie
 
-Daca te blochezi: `../../../../final/src/aplicatie-finala/1-atm-banking/`.
+Daca te blochezi: `../../../../final/src/aplicatie_finala/1-atm-banking/`.

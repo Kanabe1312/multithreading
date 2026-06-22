@@ -74,7 +74,7 @@ shell fara sa atarne.
 ## Cum rulezi
 
 ```bash
-cd src/aplicatie-finala/3-vot-online
+cd src/aplicatie_finala/3-vot-online
 javac *.java
 java Main
 ```
@@ -83,4 +83,4 @@ java Main
 
 ## Solutie
 
-Daca te blochezi: `../../../../final/src/aplicatie-finala/3-vot-online/`.
+Daca te blochezi: `../../../../final/src/aplicatie_finala/3-vot-online/`.
