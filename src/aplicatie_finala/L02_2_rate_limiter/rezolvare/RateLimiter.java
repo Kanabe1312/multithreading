@@ -17,6 +17,9 @@ public class RateLimiter {
 
     private List<Response> acceptedResponses = Collections.synchronizedList(new ArrayList<>());
 
+    public List<Response> getAcceptedResponses() {
+        return acceptedResponses;
+    }
 
     public RateLimiter(int limit) {
         this.limit = limit;
