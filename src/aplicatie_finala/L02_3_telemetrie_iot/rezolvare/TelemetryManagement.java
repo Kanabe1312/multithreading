@@ -27,15 +27,11 @@ public class TelemetryManagement {
         statistics.incrementReadings();
         statistics.addTemperature(temperature);
 
-        while(true){
-            double currentMax = statistics.getMaxTemperature();
-            if(temperature <= currentMax){
-                break;
-            }
-
-            if(statistics.getMaxRe)
-        }
-
+        statistics.updateMax(temperature);
+        statistics.updateMin(temperature);
+    }
+    public List<TelemetryReading> getReadings(){
+        return readings ;
     }
 
 }

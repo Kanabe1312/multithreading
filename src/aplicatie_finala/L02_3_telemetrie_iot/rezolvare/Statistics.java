@@ -11,6 +11,14 @@ public class Statistics {
 
     private AtomicReference<Double> minTemperature = new AtomicReference<>(Double.MAX_VALUE);
     private AtomicReference<Double> maxTemperature = new AtomicReference<>(-Double.MAX_VALUE);
+   public AtomicReference<Double> getMinReference(){
+       return minTemperature;
+   }
+   public AtomicReference<Double> getMaxReference(){
+       return maxTemperature;
+   }
+
+
     public void incrementReadings(){
         totalReadings.incrementAndGet();
     }
@@ -39,6 +47,19 @@ public class Statistics {
             return 0;
         }else {
             return getTotalTemperature()/totalReadings.get();
+        }
+    }
+
+
+    public synchronized void updateMax(double temperature) {
+        if (temperature > maxTemperature.get()) {
+            maxTemperature.set(temperature);
+        }
+    }
+
+    public synchronized void updateMin(double temperature) {
+        if (temperature < minTemperature.get()) {
+            minTemperature.set(temperature);
         }
     }
 
