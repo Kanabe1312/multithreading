@@ -15,18 +15,52 @@
 //
 // Asteptat: unul-doua threaduri intra, restul sar peste (nedeterminist).
 // =============================================================
-
-// PAS 1: import java.util.concurrent.locks.ReentrantLock;
+import java.util.concurrent.locks.ReentrantLock;
 // TODO
 
 public class Ex302 {
     public static void main(String[] args) throws InterruptedException {
-        // PAS 2: ReentrantLock lock = new ReentrantLock();
+       ReentrantLock lock = new ReentrantLock();
+       Thread[] threads = new Thread[5];
+       for (int i = 0; i < 5; i++) {
+           final int idx = i;
+           threads[i] = new Thread(() -> {
+               foleseste(lock,idx);
+           });
+       }
+       // PAS 2: ReentrantLock lock = new ReentrantLock();
         // PAS 3: Thread[] t = new Thread[5]; captezi indexul cu `final int idx = i;`
         //        in fiecare thread apelezi foloseste(lock, idx);
         // PAS 4: start + join pe toate
         // TODO
+
+        for(Thread thread : threads){
+            thread.start();
+        }
+        for(Thread thread : threads){
+            thread.join();
+        }
     }
+
+
+
+    static void foleseste(ReentrantLock lock, int idx){
+        if(lock.tryLock()){
+            try {
+                System.out.println("[task-" + idx + "] folesteste");
+                Thread.sleep(50);
+            }catch (InterruptedException e){
+                Thread.currentThread().interrupt();
+            }finally {
+                lock.unlock();
+                System.out.println("[task-" + idx + "]gata");
+            }
+        }else {
+            System.out.println("[task-" + idx + "]ocupat,sar peste");
+        }
+    }
+
+
 
     // PAS 5: static void foloseste(ReentrantLock lock, int idx)
     //   - tryLock(): daca reusesti -> print "[task-idx] LUCREZ", Thread.sleep(50),
