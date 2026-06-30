@@ -16,8 +16,9 @@
 // =============================================================
 
 // PAS 1: importuri
-//   import java.util.List;
-//   import java.util.concurrent.CopyOnWriteArrayList;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
 // TODO
 
 public class Ex307 {
@@ -30,5 +31,31 @@ public class Ex307 {
         // PAS 5: start + join pe ambele
         // PAS 6: print "Total abonati: " + abonati.size()
         // TODO
+
+        List<String> abonati = new CopyOnWriteArrayList<>();
+        abonati.add("Ana");
+        abonati.add("Bogdan");
+
+        Thread cititor = new Thread(()->{
+            try {
+                for(String a : abonati){
+                    System.out.println("Notific " + a);
+                    Thread.sleep(20);
+                }
+            }catch (InterruptedException e){
+                Thread.currentThread().interrupt();
+            }
+        });
+        Thread scriitor = new Thread(()->{
+           abonati.add("Cristi");
+           abonati.add("Dan");
+           abonati.add("Elena");
+        });
+        cititor.start();
+        scriitor.start();
+        cititor.join();
+        scriitor.join();
+
+        System.out.println("Total abonati : " + abonati.size());
     }
 }

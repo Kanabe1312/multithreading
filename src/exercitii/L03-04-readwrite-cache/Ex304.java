@@ -40,8 +40,7 @@ public class Ex304 {
 
         Thread w = new Thread(() -> {cache.put("x", 42);
             System.out.println("Writer a scris 42");
-
-        }, "W");
+            }, "W");
 
         r1.start();
         r2.start();

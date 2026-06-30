@@ -14,10 +14,9 @@
 //
 // Asteptat: fiecare cuvant numarat de 4x (4 threaduri). Mereu acelasi
 // rezultat, indiferent de ordine.
-// =============================================================
+// ============================================================
+import java.util.concurrent.ConcurrentHashMap;
 
-// PAS 1: import java.util.concurrent.ConcurrentHashMap;
-// TODO
 
 public class Ex305 {
     public static void main(String[] args) throws InterruptedException {
@@ -29,5 +28,27 @@ public class Ex305 {
         // PAS 6: print frecventa
         //        (Asteptat: mar=12, para=8, kiwi=4)
         // TODO
+        ConcurrentHashMap<String, Integer> frecventa = new ConcurrentHashMap<>();
+        String[] cuvinte =  {"mar","para","mar","kiwi","para","mar"};
+        Runnable job = () -> {
+            for(String cuvante : cuvinte) {
+                frecventa.merge(cuvante, 1, Integer::sum);
+            }
+        };
+        Thread[] t = new Thread[4];
+        for(int i = 0; i< t.length; i++){
+            t[i] = new Thread(job);
+        }
+        for(Thread thread : t){
+            thread.start();
+        }
+        for(Thread thread : t){
+            thread.join();
+        }
+
+        System.out.println(frecventa);
+
+
+
     }
 }

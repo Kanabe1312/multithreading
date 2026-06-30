@@ -19,9 +19,9 @@
 // =============================================================
 
 // PAS 1: importuri
-//   import java.util.List;
-//   import java.util.concurrent.ConcurrentHashMap;
-//   import java.util.concurrent.CopyOnWriteArrayList;
+   import java.util.List;
+   import java.util.concurrent.ConcurrentHashMap;
+   import java.util.concurrent.CopyOnWriteArrayList;
 // TODO
 
 public class Ex306 {
@@ -34,5 +34,33 @@ public class Ex306 {
         // PAS 5: 3 threaduri cu acelasi job; start + join
         // PAS 6: print grupe (sau parcurge si afiseaza litera -> lista)
         // TODO
+
+        ConcurrentHashMap<Character,List<String>> grupe = new ConcurrentHashMap<>();
+
+        String[]nume = {"Ana","Andrei","Bogdan","Cristi","Alex","Bianca"};
+        Runnable job = () -> {
+            for(String numePers : nume){
+                char litere = numePers.charAt(0);
+                grupe.computeIfAbsent(litere,k -> new CopyOnWriteArrayList<>()).add(numePers);
+            }
+        };
+        Thread[]t = new Thread[3];
+        for(int i = 0; i < t.length; i++){
+            t[i] = new Thread(job);
+        }
+
+        for(Thread thread : t){
+            thread.start();
+        }
+        for(Thread thread : t){
+            thread.join();
+        }
+
+        System.out.println(grupe);
+        for(Character cuvante : grupe.keySet()){
+            System.out.println(cuvante + "-->" + grupe.get(cuvante));
+        }
+
+
     }
 }
