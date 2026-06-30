@@ -15,8 +15,8 @@
 // =============================================================
 
 // PAS 1: importuri
-//   import java.util.HashMap; import java.util.Map;
-//   import java.util.concurrent.locks.ReentrantReadWriteLock;
+   import java.util.HashMap; import java.util.Map;
+   import java.util.concurrent.locks.ReentrantReadWriteLock;
 // TODO
 
 public class Ex304 {
@@ -27,6 +27,32 @@ public class Ex304 {
         // PAS 5: start + join pe toate
         // PAS 6: print "Final x = " + cache.get("x")
         // TODO
+        Cache cache = new Cache();
+        cache.put("x",0);
+        Runnable citior = ()->{
+            for (int i = 0; i < 3; i++) {
+                System.out.println(Thread.currentThread().getName()+"citeste x = "+cache.get("x"));
+            }
+        };
+        Thread r1 = new Thread(citior,"R1");
+        Thread r2 = new Thread(citior,"R2");
+        Thread r3 = new Thread(citior,"R3");
+
+        Thread w = new Thread(() -> {cache.put("x", 42);
+            System.out.println("Writer a scris 42");
+
+        }, "W");
+
+        r1.start();
+        r2.start();
+        r3.start();
+        w.start();
+
+        r1.join();
+        r2.join();
+        r3.join();
+        w.join();
+
     }
 
     // PAS 2: clasa Cache cu:
@@ -35,4 +61,25 @@ public class Ex304 {
     //   - Integer get(String k) -> rw.readLock().lock(); try {...} finally {...}
     //   - void put(String k, Integer v) -> rw.writeLock().lock(); try {...} finally {...}
     // TODO
+    static class Cache {
+        private Map<String, Integer> map;
+        private final ReentrantReadWriteLock rw = new ReentrantReadWriteLock();//protejeaza mapa
+        Integer get(String k) {
+            rw.readLock().lock();
+            try {
+                return map.get(k);
+            } finally {
+                rw.readLock().unlock();
+            }
+        }
+        void put(String k, Integer v) {
+            rw.writeLock().lock();
+            try {
+                map.put(k, v);
+
+            }finally {
+                rw.writeLock().unlock();
+            }
+        }
+    }
 }
