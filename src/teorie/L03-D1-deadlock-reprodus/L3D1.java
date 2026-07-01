@@ -15,6 +15,11 @@ import java.util.concurrent.locks.ReentrantLock;
 // timp T1 doarme dupa A). In realitate un deadlock atarna programul la
 // nesfarsit; aici un thread "detector" foloseste ThreadMXBean ca sa-l
 // raporteze si inchidem JVM-ul (System.exit) ca demo-ul sa se termine.
+
+
+//t1 blocheaza A apoi vrea sa blocheze B
+//T2 BLOCHEAZA B apoi vrea sa blocheze A
+
 public class L3D1 {
     static final ReentrantLock lockA = new ReentrantLock();
     static final ReentrantLock lockB = new ReentrantLock();
