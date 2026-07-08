@@ -72,42 +72,24 @@ public class Ex308 {
         System.out.println("Total: "+ (a.sold+b.sold));
     }
 
-    // PAS 3: static void transfer(Cont din, Cont in, int suma)
-    //   Varianta SIGURA (lock ordering):
-   // static void transfer(Cont din,Cont in,int suma ){
-    //        Cont primul = (din.id < in.id) ? din : in;
-    //        Cont aldoilea = (din.id < in.id) ? din : in;
-    //        primul.lock.lock();
-    //        try {
-    //            aldoilea.lock.lock();
-    //            try {
-    //                din.sold -= suma;
-    //                in.sold += suma;
-    //            }finally {
-    //                aldoilea.lock.unlock();
-    //            }
-    //        }finally {
-    //            primul.lock.unlock();
-    //        }
-    //    }
 
-    static void transfer(Cont din, Cont in, int suma) throws InterruptedException {
-
-        din.lock.lock();
-        try {
-            Thread.sleep(1);
-            in.lock.lock();
+    static void transfer(Cont din,Cont in,int suma ){
+            Cont primul = (din.id < in.id) ? din : in;
+            Cont aldoilea = (din.id < in.id) ? din : in;
+            primul.lock.lock();
             try {
-                din.sold -= suma;
-                in.sold += suma;
-            }finally {in.lock.unlock();
+                aldoilea.lock.lock();
+                try {
+                    din.sold -= suma;
+                    in.sold += suma;
+                }finally {
+                    aldoilea.lock.unlock();
+                }
+            }finally {
+                primul.lock.unlock();
             }
-        }catch (InterruptedException e){
-            Thread.currentThread().interrupt();
+       }
 
-        }finally {
-            din.lock.unlock();
-        }
-    }
+
 
 }

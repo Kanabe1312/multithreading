@@ -24,15 +24,15 @@
 // =============================================================
 
 // PAS 1: importuri
-//   import java.lang.management.ManagementFactory;
-//   import java.lang.management.ThreadInfo;
-//   import java.lang.management.ThreadMXBean;
-//   import java.util.concurrent.locks.ReentrantLock;
+   import java.lang.management.ManagementFactory;
+   import java.lang.management.ThreadInfo;
+   import java.lang.management.ThreadMXBean;
+   import java.util.concurrent.locks.ReentrantLock;
 // TODO
 
 public class Ex309 {
-    // PAS 2: static final ReentrantLock lockA = new ReentrantLock();
-    //        static final ReentrantLock lockB = new ReentrantLock();
+     static final ReentrantLock lockA = new ReentrantLock();
+     static final ReentrantLock lockB = new ReentrantLock();
     // TODO
 
     public static void main(String[] args) throws InterruptedException {
@@ -48,6 +48,25 @@ public class Ex309 {
         //        info.getThreadName() + " asteapta lock-ul detinut de " + info.getLockOwnerName();
         //        apoi System.exit(0);
         // TODO
+
+        Thread t1 = new Thread(()->{
+            lockA.lock();
+            try{
+                Thread.sleep(1000);
+            }catch(InterruptedException e){}
+        });
+
+
+
+
+
+
+
+
+
+
+
+
     }
 
     // (optional) PAS 6: static void dormi(long ms) care prinde InterruptedException,
