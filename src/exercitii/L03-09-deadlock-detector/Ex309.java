@@ -52,9 +52,50 @@ public class Ex309 {
         Thread t1 = new Thread(()->{
             lockA.lock();
             try{
-                Thread.sleep(1000);
-            }catch(InterruptedException e){}
-        });
+             dormi(200);
+             lockB.lock();
+                      try {
+
+                      }finally {
+                          lockB.unlock();
+                      }
+            }finally {
+                lockA.unlock();
+            }
+        },"T1");
+        Thread t2 = new Thread(()->{
+            lockB.lock();
+            try{
+             dormi(200);
+             lockA.lock();
+             try {
+
+             }finally {
+                 lockA.unlock();
+             }
+            }finally {
+                lockB.unlock();
+            }
+        },"T2");
+
+        t1.start();
+        t2.start();
+        Thread.sleep(1000);
+        ThreadMXBean mxBean = ManagementFactory.getThreadMXBean();
+        long[]blocate = mxBean.findDeadlockedThreads();
+
+        if(blocate == null){
+            System.out.println("Nu s-a format deadlock.");
+            return;
+        }
+
+        System.out.println("Deadlock detectat pe "+blocate.length+" threaduri");
+        for (long id : blocate) {
+            ThreadInfo threadInfo = mxBean.getThreadInfo(id);
+
+            System.out.println(threadInfo.getThreadName() + "asteapta lock-ul detinut de "+threadInfo.getLockOwnerName());
+        }
+        System.exit(0);
 
 
 
@@ -72,4 +113,10 @@ public class Ex309 {
     // (optional) PAS 6: static void dormi(long ms) care prinde InterruptedException,
     //   ca sa nu repeti try/catch in fiecare thread.
     // TODO
+    static void dormi(long ms){
+        try {
+            Thread.sleep(ms);
+        }catch(InterruptedException e){}
+        Thread.currentThread().interrupt();
+    }
 }
